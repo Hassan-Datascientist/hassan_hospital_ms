@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 def staff_dashboard(request):
     return render(request, 'staff/staff_dashboard.html')
 
-@login_required
+@login_required(login_url = "/login/")
 def add_patient(request):
     if request.method == 'POST':
         form = PatientForm(request.POST)
@@ -19,12 +19,12 @@ def add_patient(request):
         form = PatientForm()
     return render(request, 'patient/add_patient.html', {'form': form})
 
-@login_required
+@login_required(login_url = "/login/")
 def get_all_patient(request):
     patients = Patient.objects.all()
     return render(request, 'patient/list_patient.html',{'patients':patients})
 
-@login_required
+@login_required(login_url = "/login/")
 def get_one_patient(request,patient_id):
     patient = get_object_or_404(Patient,id = patient_id )
     return render(request, 'patient/patient_detail.html', {'patient': patient})
