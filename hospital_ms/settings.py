@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'patient',
     'staff',
-    'doctor'
+    'doctor',
+    'account'
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'hospital_ms.wsgi.application'
 
+AUTH_USER_MODEL = "account.User"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

@@ -1,0 +1,84 @@
+{% extends "base.html" %} {% block content %}
+<div class="flex justify-center items-start pt-12 min-h-screen">
+  <div class="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+    <h2 class="text-center text-2xl font-semibold mb-6">Create an Account</h2>
+
+    <!-- Tabs -->
+    <div class="flex justify-center space-x-4 mb-4">
+      <button
+        id="staff-tab"
+        class="py-2 px-4 rounded-t-md text-sm font-medium text-blue-600 border-b-2 border-blue-600"
+      >
+        Staff
+      </button>
+      <button
+        id="doctor-tab"
+        class="py-2 px-4 rounded-t-md text-sm font-medium text-gray-500 hover:text-blue-600"
+      >
+        Doctor
+      </button>
+    </div>
+
+    <!-- Staff Form -->
+    <div id="staff-form">
+      <form method="post" action="" class="space-y-4">
+        {% csrf_token %} {% for field in staff_form %}
+        <div>
+          {{ field.label_tag }}<br />
+          {{ field }} {% if field.errors %}
+          <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+        >
+          Sign Up as Staff
+        </button>
+      </form>
+    </div>
+
+    <!-- Doctor Form -->
+    <div id="doctor-form" class="hidden">
+      <form method="post" action="" class="space-y-4">
+        {% csrf_token %} {% for field in doctor_form %}
+        <div>
+          {{ field.label_tag }}<br />
+          {{ field }} {% if field.errors %}
+          <p class="text-red-500 text-sm">{{ field.errors|striptags }}</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+        <button
+          type="submit"
+          class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+        >
+          Sign Up as Doctor
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  const staffTab = document.getElementById("staff-tab");
+  const doctorTab = document.getElementById("doctor-tab");
+  const staffForm = document.getElementById("staff-form");
+  const doctorForm = document.getElementById("doctor-form");
+
+  staffTab.addEventListener("click", () => {
+    staffForm.classList.remove("hidden");
+    doctorForm.classList.add("hidden");
+    staffTab.classList.add("text-blue-600", "border-blue-600");
+    doctorTab.classList.remove("text-blue-600", "border-blue-600");
+  });
+
+  doctorTab.addEventListener("click", () => {
+    doctorForm.classList.remove("hidden");
+    staffForm.classList.add("hidden");
+    doctorTab.classList.add("text-blue-600", "border-blue-600");
+    staffTab.classList.remove("text-blue-600", "border-blue-600");
+  });
+</script>
+{% endblock %}
