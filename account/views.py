@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
-
 from account.forms import StaffRegistrationForm,DoctorRegistrationForm  # and DoctorRegistrationForm if you have it
+from django.http import HttpResponse
+from .forms import LoginForm
+from django.contrib.auth import authenticate, login
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -27,17 +30,7 @@ def register_view(request):
         'doctor_form': doctor_form,
     })
 
-from django.http import HttpResponse
-from .forms import LoginForm
-from django.contrib.auth import authenticate, login
 
-
-
-
-
-
-def register(request):
-    return render(request, "account/register.html")
 
 
 
@@ -56,7 +49,7 @@ def login_user(request):
                     return redirect("staff-list")
 
                 # redirect to staff page
-                return redirect("staff-list")
+                return redirect("staff_dashboard")
 
 
             else:
