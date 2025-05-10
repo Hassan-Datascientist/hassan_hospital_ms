@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex justify-center pt-12 min-h-screen bg-gray-100">
+    <div class="w-full max-w-3xl bg-white shadow-md rounded-lg p-6">
+        <div class="mb-6">
+            <h2 class="text-2xl font-semibold text-center mb-2">Patient Information</h2>
+            <p class="text-center text-gray-600">Detailed view of the patient record</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <p class="font-medium">First Name:</p>
+                <p class="text-gray-700">{{ patient.first_name }}</p>
+            </div>
+            <div>
+                <p class="font-medium">Last Name:</p>
+                <p class="text-gray-700">{{ patient.last_name }}</p>
+            </div>
+            <div>
+                <p class="font-medium">Date of Birth:</p>
+                <p class="text-gray-700">{{ patient.date_of_birth }}</p>
+            </div>
+            <div>
+                <p class="font-medium">Gender:</p>
+                <p class="text-gray-700">{{ patient.gender }}</p>
+            </div>
+            <div>
+                <p class="font-medium">Phone:</p>
+                <p class="text-gray-700">{{ patient.phone }}</p>
+            </div>
+            <div>
+                <p class="font-medium">Email:</p>
+                <p class="text-gray-700">{{ patient.email }}</p>
+            </div>
+            <div class="md:col-span-2">
+                <p class="font-medium">Address:</p>
+                <p class="text-gray-700">{{ patient.address }}</p>
+            </div>
+        </div>
+
+        <div class="flex justify-between mt-8">
+            <a href="{% url 'list-patient' %}" class="text-blue-600 hover:underline">
+                ← Back to List
+            </a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

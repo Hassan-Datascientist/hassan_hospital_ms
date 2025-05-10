@@ -9,7 +9,7 @@ class Staff(models.Model):
         ('staff', 'Staff')
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, blank = True, null = True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name} - {self.role.capitalize()}"

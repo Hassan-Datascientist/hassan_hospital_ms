@@ -1,5 +1,13 @@
-from django.urls import path 
-from .views import get_staff, get_staffs, delete_staff, update_staff
+from django.urls import path
+from .views import (
+    get_all_patient,
+    get_one_patient,
+    add_patient,
+    delete_staff,
+    update_staff,
+    staff_dashboard
+
+      )
 
 
 
@@ -7,8 +15,10 @@ from .views import get_staff, get_staffs, delete_staff, update_staff
 
 
 urlpatterns = [
-    path('', get_staffs, name='staff-list'),
-    path("<int:id>/", get_staff),
-    path("<int:id>/", delete_staff),
-    path("<int:id>/", update_staff)
+    path('', add_patient, name='add-patient'),
+    path("all_patient/", get_all_patient,name = 'list-patient'),
+    path('patient/<int:patient_id>/',get_one_patient, name='patient-detail'),
+    path("patient/", update_staff),
+    path('dashboard/', staff_dashboard, name='staff_dashboard'),
+
 ]

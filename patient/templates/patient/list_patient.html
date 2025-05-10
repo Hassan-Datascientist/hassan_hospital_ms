@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="flex justify-center pt-12 min-h-screen bg-gray-100">
+    <div class="w-full max-w-6xl bg-white shadow-md rounded-lg p-6">
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-semibold">Patient List</h2>
+            <a href="{% url 'add-patient' %}"
+                class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+                Add Patient
+            </a>
+        </div>
+
+        {% if patients %}
+        <div class="overflow-x-auto">
+            <table class="min-w-full table-auto border-collapse border border-gray-200">
+                <thead>
+                    <tr class="bg-gray-100 text-left">
+                        <th class="border px-4 py-2">id</th>
+                        <th class="border px-4 py-2">Name</th>
+                        <th class="border px-4 py-2">DOB</th>
+                        <th class="border px-4 py-2">Gender</th>
+                        <th class="border px-4 py-2">Phone</th>
+                        <th class="border px-4 py-2">Email</th>
+                        <th class="border px-4 py-2">created_at</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="border px-4 py-2">{{ forloop.counter }}</td>
+                        <td class="border px-4 py-2">
+                            <a href="{% url 'patient-detail' patient.id  %}" class="text-blue-600 hover:underline">
+                                {{ patient.first_name }} {{ patient.last_name }}
+                            </a>
+                        </td>
+                        <td class="border px-4 py-2">{{ patient.date_of_birth }}</td>
+                        <td class="border px-4 py-2">{{ patient.gender }}</td>
+                        <td class="border px-4 py-2">{{ patient.phone }}</td>
+                        <td class="border px-4 py-2">{{ patient.email }}</td>
+                        <td class="border px-4 py-2">{{ patient.created_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p class="text-gray-500 text-center mt-6">No patients found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
