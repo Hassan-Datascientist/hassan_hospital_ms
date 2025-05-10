@@ -5,6 +5,7 @@ from .forms import LoginForm
 from django.contrib.auth import authenticate, login
 
 
+
 def register_view(request):
     if request.method == 'POST':
         submit_type = request.POST.get('submit_type')
