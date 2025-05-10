@@ -1,9 +1,110 @@
-{% extends "base.html" %} {% block content %}
-<h2 class="text-2xl font-semibold mb-4">Login</h2>
-<form method="post" class="bg-white p-6 rounded shadow-md">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded mt-4">
-    Login
-  </button>
-</form>
+{% extends "base.html" %} {% block content %}{% load form_tags %}
+<div class="flex justify-center items-start pt-[3rem] min-h-screen bg-gray-100">
+  <div class="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-center text-2xl font-semibold mb-6 text-gray-800">Login</h1>
+    <div class="text-center mb-4">
+      <h2 class="text-3xl font-bold text-gray-800">Welcome Back 👋</h2>
+      <p class="text-gray-500 text-sm mt-1">
+        Please log in to access your dashboard
+      </p>
+    </div>
+
+    <form method="post" class="space-y-5" action="{% url 'log-in' %}">
+      {% csrf_token %} {{form.media}}
+
+      <!-- Email Field -->
+      <div class="flex justify-center bg-red">
+        <p>{{form.non_field_errors}}</p>
+      </div>
+
+      <div>
+        <label class="block text-gray-700 font-medium mb-1" for="id_email">
+          {{form.email.label}}
+        </label>
+        <div
+          class="flex border items-center border-gray-300 rounded pl-3 pr-1 py-1"
+        >
+          <svg
+            class="h-5 w-5 text-gray-400 mr-2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 1115 0v.75H4.5v-.75z"
+            />
+          </svg>
+
+          {% add_class form.email "pl-2 w-full border border-gray-300 py-1 " %}
+        </div>
+        {% if form.email.errors %}
+        <p class="text-red-500 text-sm mt-1">
+          {{ form.email.errors|striptags }}
+        </p>
+        {% endif %}
+      </div>
+
+      <!-- Password Field -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-1" for="id_password">
+          {{form.password.label}}
+        </label>
+        <div class="flex items-center border border-gray-300 rounded px-3 py-2">
+          <svg
+            class="h-5 w-5 text-gray-400 mr-2"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M16.5 10.5V7.875a4.125 4.125 0 10-8.25 0V10.5m12.375 0h-16.5v9.375h16.5V10.5z"
+            />
+          </svg>
+          {% add_class form.password "pl-2 w-full border py-1" %}
+        </div>
+        {% if form.password.errors %}
+        <p class="text-red-500 text-sm mt-1">
+          {{ form.password.errors|striptags }}
+        </p>
+        {% endif %}
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition flex items-center justify-center"
+      >
+        <svg
+          class="h-5 w-5 mr-2"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 9V5.25m0 0a3.75 3.75 0 00-7.5 0V9m7.5-3.75H7.5m12.75 4.5v7.875A2.625 2.625 0 0117.625 20.25H6.375A2.625 2.625 0 013.75 17.625V9.75"
+          />
+        </svg>
+        Login
+      </button>
+
+      <!-- Optional: Forgot password -->
+      <p class="text-sm text-center mt-4 text-gray-500">
+        Forgot your password?
+        <a href="#" class="text-blue-600 hover:underline">Reset it</a>
+      </p>
+    </form>
+  </div>
+</div>
 {% endblock %}
