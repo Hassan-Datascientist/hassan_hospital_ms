@@ -2,9 +2,9 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from patient.models import Patient
 from patient.forms import PatientForm
-from django.contrib.auth.decorators import login_required 
-from .forms import StaffUpdateForm 
-from account.models import User 
+from django.contrib.auth.decorators import login_required
+from .forms import StaffUpdateForm
+from account.models import User
 from patient.models import Patient
 
 @login_required(login_url = "/login/")
@@ -16,13 +16,13 @@ def add_patient(request):
     if request.method == 'POST':
         form = PatientForm(request.POST)
         if form.is_valid():
-            cleaned_data = form.cleaned_data 
-            date = request.POST.get("date") 
-            patient = Patient(**cleaned_data) 
+            cleaned_data = form.cleaned_data
+            date = request.POST.get("date")
+            patient = Patient(**cleaned_data)
             patient.created_by = request.user
-            patient.date_of_birth = date 
+            patient.date_of_birth = date
             patient.save()
-            
+
             return redirect('staff_dashboard')
     else:
         form = PatientForm()
@@ -67,21 +67,21 @@ def delete_staff(request, id):
 # path: /staff/id/
 def update_staff(request, id):
     try:
-        user = User.objects.get(id=id) 
-        print(user.id)
+        user = User.objects.get(id=id)
+
     except Exception as e:
-        user = None 
-    
+        user = None
+
     if user is not None:
-        form = StaffUpdateForm(instance=user) 
+        form = StaffUpdateForm(request.POST, instance=user)
         if request.method == "POST":
-            form = StaffUpdateForm(request.POST) 
+            form = StaffUpdateForm(request.POST, instance=user)
             if form.is_valid():
-                form.save() 
-        
+                form.save()
+
         context = {"form": form}
-            
-        return render(request, "staff/update_staff.html", context) 
+
+        return render(request, "staff/update_staff.html", context)
 
 
 def test(request):

@@ -13,7 +13,7 @@ class StaffRegistrationForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'input'}),
             'last_name': forms.TextInput(attrs={'class': 'input'}),
             'email': forms.TextInput(attrs={'class': 'input'}),
-            
+
         }
 
     def save(self, commit=True):
@@ -28,7 +28,8 @@ class StaffRegistrationForm(forms.ModelForm):
 
 class DoctorRegistrationForm(forms.ModelForm):
     # User fields
-    username = forms.CharField(max_length=150)
+    first_name = forms.CharField(required=True)
+    last_name = forms.CharField(required=True)
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
@@ -41,7 +42,8 @@ class DoctorRegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         # Create the user first
         user = User(
-            username=self.cleaned_data['username'],
+            first_name=self.cleaned_data['first_name'],
+            last_name=self.cleaned_data['last_name'],
             email=self.cleaned_data['email'],
             is_doctor=True
         )

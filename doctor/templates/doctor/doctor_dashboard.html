@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mx-auto py-8">
+  <h1 class="text-2xl font-semibold text-gray-800 mb-6">Doctor Dashboard</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div class="bg-white shadow rounded p-4">
+      <a href="{% url 'doctor-appointments' %}" class="block bg-white shadow rounded p-4 hover:shadow-lg transition duration-200">
+        <h2 class="text-lg font-medium text-blue-700 mb-2">Today's Appointments</h2>
+        <p class="text-sm text-gray-600">You have {{ appointment_count }} scheduled appointments today.</p>
+      </a>
+    </div>
+
+    <div class="bg-white shadow rounded p-4">
+      <a href="" class="block bg-white shadow rounded p-4 hover:shadow-lg transition duration-200">
+        <h2 class="text-lg font-medium text-blue-700 mb-2">New Messages</h2>
+        <p class="text-sm text-gray-600">You have {{ message_count }} unread messages.</p>
+      </a>
+
+    </div>
+
+    <div class="bg-white shadow rounded p-4">
+      <a href="{% url 'doctor-patients' %}" class="block bg-white shadow rounded p-4 hover:shadow-lg transition duration-200">
+        <h2 class="text-lg font-medium text-blue-700 mb-2">Patients</h2>
+        <p class="text-sm text-gray-600">Total patients assigned: {{ patient_count }}</p>
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
