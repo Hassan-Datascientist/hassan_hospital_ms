@@ -4,11 +4,17 @@ from staff.models import Staff
 from doctor.models import Doctor
 
 class StaffRegistrationForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'input'}))
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password']
+        fields = ['first_name', 'last_name', 'email']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'input'}),
+            'last_name': forms.TextInput(attrs={'class': 'input'}),
+            'email': forms.TextInput(attrs={'class': 'input'}),
+            
+        }
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -30,7 +36,7 @@ class DoctorRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = Doctor
-        fields = ['specialization', 'available']
+        fields = ['specialization']
 
     def save(self, commit=True):
         # Create the user first

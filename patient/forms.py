@@ -2,9 +2,10 @@ from django import forms
 from .models import Patient
 
 
-class PatientForm(forms.ModelForm):
-
-    class Meta:
-        model = Patient
-        fields = ['first_name','last_name','date_of_birth','gender','phone','address','email']
-        exclude = ['created_at']
+class PatientForm(forms.Form):
+    first_name = forms.CharField(min_length=2, required=True) 
+    last_name = forms.CharField(min_length=2, required=True) 
+    phone = forms.CharField(min_length=10, required=True)
+    gender = forms.CharField(min_length=4, max_length=6)
+    email = forms.EmailField() 
+    address = forms.CharField() 

@@ -5,7 +5,8 @@ from .views import (
     add_patient,
     delete_staff,
     update_staff,
-    staff_dashboard
+    staff_dashboard,
+    test
 
       )
 
@@ -20,5 +21,7 @@ urlpatterns = [
     path('patient/<int:patient_id>/',get_one_patient, name='patient-detail'),
     path("patient/", update_staff),
     path('dashboard/', staff_dashboard, name='staff_dashboard'),
+    path('<int:id>/', update_staff, name="update-profile"),
+    path("test/", test)
 
 ]

@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from account.forms import StaffRegistrationForm,DoctorRegistrationForm  # and DoctorRegistrationForm if you have it
 from django.http import HttpResponse
 from .forms import LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout 
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -47,7 +48,7 @@ def login_user(request):
                 login(request, user)
                 if user.is_doctor:
                     # redirect to doctor page
-                    return redirect("staff-list")
+                    return redirect("/")
 
                 # redirect to staff page
                 return redirect("staff_dashboard")
@@ -62,3 +63,12 @@ def login_user(request):
     context = {"form": form}
     return render(request, "account/login.html", context)
 
+@login_required
+def logout_user(request):
+    logout(request)
+    return redirect("/")
+
+
+
+def home(request):
+    return render(request, "home.html")

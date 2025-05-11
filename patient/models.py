@@ -1,4 +1,5 @@
-from django.db import models
+from django.db import models 
+from account.models import User
 
 class Patient(models.Model):
     first_name = models.CharField(max_length=100)
@@ -8,7 +9,7 @@ class Patient(models.Model):
     phone = models.CharField(max_length=15)
     email = models.EmailField(blank=True, null=True)
     address = models.TextField()
-    #created_by = models.ForeignKey(Staff, on_delete=models.SET_NULL, null=True, related_name='patients')
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='patients')
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
