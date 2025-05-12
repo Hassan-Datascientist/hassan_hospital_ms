@@ -18,8 +18,20 @@
     </div>
     {% endfor %}
     <div>
-        <label>Date of Birth</label>
-        <input type="date" class="input" name="date" /> 
+        <label class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+        <input type="date" class="input" name="date" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Assign to doctor</label>
+        <select name="doctor_id" id="doctor">
+            {% for doctor in doctors %}
+                <option value="{{doctor.id}}">{{doctor.user.first_name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+        <input type="textarea" class="input" name="notes" />
     </div>
 
 

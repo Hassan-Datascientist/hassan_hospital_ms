@@ -39,6 +39,7 @@ class User(AbstractUser):
     """Custom User model"""
     email = models.EmailField(_('email address'), unique=True)
     is_doctor = models.BooleanField(default=False)
+    username = models.CharField(unique=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('username',)

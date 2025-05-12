@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-
+from appointment.models import Appointment
+from doctor.models import Doctor
 
 
 
@@ -24,7 +24,14 @@ def doctor_profile(request, id):
 
 
 def list_appointments(request):
-    return render(request, "doctor/doctor_appointments.html")
+    appointments = Appointment.objects.filter(doctor__user=request.user)
+    print(appointments)
+
+    context = {
+        "appointments": appointments
+    }
+
+    return render(request, "doctor/doctor_appointments.html", context)
 
 
 

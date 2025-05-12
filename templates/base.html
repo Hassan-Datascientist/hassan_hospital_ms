@@ -14,8 +14,8 @@
        <div class="navbar bg-blue-600 text-white shadow-sm">
   <div class="flex-1">
     <h1 class="text-xl font-bold">🏥 Hospital Rwanda</h1>
-  </div> 
-  {% if request.user.is_authenticated %} 
+  </div>
+  {% if request.user.is_authenticated %}
       <div class="flex gap-2">
     {% comment %} <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" /> {% endcomment %}
     <div class="dropdown dropdown-end">
@@ -35,14 +35,24 @@
             <span class="badge">New</span>
           </a>
         </li>
+        <li>
+            {% if request.user.is_authenticated %}
+                {% if request.user.is_doctor %}
+                    <a href="{% url 'doctor-dashboard' %}" class="text-black">Dashboard</a>
+                {% else %}
+                    <a href="{% url 'staff_dashboard' %}" class="text-black">Dashboard</a>
+                {% endif %}
+            {% endif %}
+            <a href=""></a>
+        </li>
         <li><a class="text-black">Settings</a></li>
         <li><a href="{% url 'log-out' %}" class="text-black">Logout</a></li>
       </ul>
     </div>
-  </div> 
+  </div>
 
-  {% else %} 
-    <ul class="flex items-center gap-6 text-sm font-medium"> 
+  {% else %}
+    <ul class="flex items-center gap-6 text-sm font-medium">
       <li>
               <a
                 href="{% url 'log-in' %}"
@@ -89,7 +99,7 @@
             </li>
       </ul>
   {% endif %}
-  
+
 </div>
 
     </header>

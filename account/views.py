@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from account.forms import StaffRegistrationForm,DoctorRegistrationForm  # and DoctorRegistrationForm if you have it
 from django.http import HttpResponse
 from .forms import LoginForm
-from django.contrib.auth import authenticate, login, logout 
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 
@@ -39,6 +39,10 @@ def register_view(request):
 def login_user(request):
     form = LoginForm()
     if request.method == "POST":
+        if request.user.is_authenticated:
+            if request.user.is_doctor:
+                return redirect("doctor-dashboard")
+            return redirect("staff_dashboard")
         form = LoginForm(request.POST)
         if form.is_valid():
             cd = form.cleaned_data
@@ -48,7 +52,7 @@ def login_user(request):
                 login(request, user)
                 if user.is_doctor:
                     # redirect to doctor page
-                    return redirect("/")
+                    return redirect("doctor-dashboard")
 
                 # redirect to staff page
                 return redirect("staff_dashboard")

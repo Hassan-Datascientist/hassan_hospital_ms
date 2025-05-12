@@ -16,7 +16,7 @@
       <tbody class="bg-white divide-y divide-gray-200">
         {% for appt in appointments %}
         <tr>
-          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ appt.patient.full_name }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ appt.patient.first_name}} {{ appt.patient.last_name }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ appt.date }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ appt.time }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">{{ appt.status }}</td>
