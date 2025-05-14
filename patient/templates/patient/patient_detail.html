@@ -39,9 +39,15 @@
         </div>
 
         <div class="flex justify-between mt-8">
-            <a href="{% url 'list-patient' %}" class="text-blue-600 hover:underline">
-                ← Back to List
-            </a>
+            {% if request.user.is_doctor %}
+                <a href="{% url 'doctor-patients' %}" class="text-blue-600 hover:underline">
+                   ← Back to List
+                </a>
+            {% else %}
+               <a href="{% url 'list-patient' %}" class="text-blue-600 hover:underline">
+                   ← Back to List
+                </a>
+            {% endif %}
 
         </div>
     </div>

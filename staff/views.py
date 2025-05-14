@@ -8,6 +8,10 @@ from account.models import User
 from patient.models import Patient
 from doctor.models import Doctor
 from appointment.models import Appointment
+from notification.utils import send_assignment_email_html
+
+
+
 
 @login_required(login_url = "/login/")
 def staff_dashboard(request):
@@ -18,7 +22,7 @@ def add_patient(request):
     doctors = Doctor.objects.all()
     doctor_id = request.POST.get("doctor_id")
     notes = request.POST.get("notes")
-    print(notes)
+
     if request.method == 'POST':
         form = PatientForm(request.POST)
         doctor_id = request.POST.get("doctor_id")
@@ -33,6 +37,13 @@ def add_patient(request):
             doctor = Doctor.objects.get(id=doctor_id)
             appointment = Appointment(doctor=doctor, patient=patient, notes=notes)
             appointment.save()
+
+            link = f"{request.scheme}://{request.get_host()}/patient/{patient.id}/"
+
+
+            # email the doctor
+            send_assignment_email_html(to_email=doctor.user.email, doctor=doctor, patient=patient, appointment_link=link)
+
 
             return redirect('staff_dashboard')
     else:

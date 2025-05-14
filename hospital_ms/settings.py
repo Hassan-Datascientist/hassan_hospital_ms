@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-
+from dotenv import load_dotenv
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()  # take environment variables
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-$!p=m=@@rbjb+fp(fvj18#warbg1%-ry)vgz=fmzcw6+4%bl+*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "192.168.1.162"]
 
 
 # Application definition
@@ -37,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'account',
     'patient',
     'staff',
     'doctor',
-    'appointment'
+    'appointment',
+    'notification'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +149,12 @@ DATE_INPUT_FORMATS = [
     "%d %B %Y",  # '25 October 2006'
     "%d %B, %Y",  # '25 October, 2006'
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+EMAIL_USER_SSL = False
+DEFAULT_FROM_EMAIL = 'Hospital Rwanda Admin <admin@hospital_rwanda.com>'

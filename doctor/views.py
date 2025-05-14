@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from appointment.models import Appointment
 from doctor.models import Doctor
-
+from patient.models import Patient
 
 
 
@@ -36,6 +36,11 @@ def list_appointments(request):
 
 
 def list_assigned_patients(request):
-    return render(request, "doctor/doctor_patients.html")
+    doctor = Doctor.objects.get(user=request.user)
+    patients = Patient.objects.filter(appointment__doctor=doctor).distinct()
+    context = {
+        "patients": patients
+    }
+    return render(request, "doctor/doctor_patients.html", context)
 
 

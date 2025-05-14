@@ -6,10 +6,10 @@
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     {% for patient in patients %}
     <div class="bg-white p-4 rounded shadow hover:shadow-md transition">
-      <h3 class="text-lg font-medium text-gray-800">{{ patient.full_name }}</h3>
-      <p class="text-sm text-gray-500">Age: {{ patient.age }}</p>
+      <h3 class="text-lg font-medium text-gray-800">{{ patient.first_name }}</h3>
+      {% comment %} <p class="text-sm text-gray-500">Age: {{ patient.age }}</p> {% endcomment %}
       <p class="text-sm text-gray-500">Gender: {{ patient.gender }}</p>
-      <a href="{% url 'patient_detail' patient.id %}" class="text-blue-600 text-sm mt-2 inline-block hover:underline">View Details</a>
+      <a href="{% url 'patient-info' patient.id %}" class="text-blue-600 text-sm mt-2 inline-block hover:underline">View Details</a>
     </div>
     {% empty %}
     <p class="text-gray-600">No patients assigned yet.</p>
